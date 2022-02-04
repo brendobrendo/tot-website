@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="left-column">
+    <div class="new-form-box">
+        <div class="new-form-bar">
+            <h2>New Meeting</h2>
+        </div>
+        <form action="/create_meeting" method="POST" class="new-form">
+            <div class="mb-3">
+                <label class="form-label">Date of Meeting:</label>
+                <input type="date" class="form-control" data-date-end-date="0d" name="meeting_date">
+            </div>
+            <div>
+                <label class="form-label">Meeting Location:</label>
+                <select name="meeting_location_id">
+                    {% for location in locations %}
+                    <option value="{{ location.value }}">{{ location.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Create Meeting</button>
+        </form>
+    </div>
+</div>
+<div class="right-column">
+    <div class="new-form-box">
+        <div class="new-form-bar">
+            <h2>New Meeting Assignments</h2>
+        </div>
+        <form action="/create_meeting_assignments" method="POST" class="new-form block">
+            <div>
+                <label class="form-label">Date of Meeting:</label>
+                <select name="meeting_date">
+                    {% for meeting in meetings %}
+                    <option value="{{ meeting.id }}">{{ meeting.meeting_date }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+           {% for role in meeting_roles %}
+           <div>
+                <label class="form-label">{{ role.name }}:</label>
+                <select name="{{ role.id }}">
+                    {% for member in members %}
+                    <option value="{{ member.id }}">{{ member.first_name }} {{ member.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+           {% endfor %}
+           <button class="btn btn-primary" type="submit">Assign Roles</button>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

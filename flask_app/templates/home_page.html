@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="left-column">
+    <div id="poast-block">
+        <h2 id="poast-bar">Make a Poast</h2>
+        <form class="form" action="/create_poast" method="POST">
+            <div>
+                <label class="form-label">Poast Title:</label>
+                <input type="text" class="form-control input-field" name="title">   
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Content:</label>
+                <textarea class="form-control" name="content"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Poast!</button>
+        </form>
+    </div>
+    {% for poast in poasts %}
+    <div class="new-poast-box">
+        <div class="new-poast-bar">
+            <h3>{{ poast.title }}</h3>
+        </div>
+        <div class="new-poast">
+            <p><em>{{ poast.poast_date }} - <a href="/show_profile/{{ poast.member_id }}">{{ poast.member_first_name }} {{ poast.member_last_name }}</em></a></p>
+            <p>{{ poast.content }}</p>  
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="right-column">
+    <div class="new-form-box">
+        <div class="new-form-bar">
+            <h2>Your Upcoming Roles</h2>
+        </div>
+        <div class="new-form">
+            {% for role in upcoming_roles %}
+            <p><strong>{{ role.meeting_date }}:</strong> {{ role.role_name }} <br> 
+                <a href="#">Confirm</a> -
+                <a href="#">Need a Volunteer</a> 
+                {% if role.role_name in ['Speaker #1', 'Speaker #2', 'Speaker #3'] %}
+                - <a href="#">Provide Speech Details</a>
+                {% endif %}
+            </p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="new-form-box">
+        <div class="new-form-bar">
+            <h2>Roles for {{ next_meeting_date }}</h2>
+        </div>
+        <div class="new-form">
+            {% for role in next_meeting_roles %}
+            <p><strong>{{ role.role_name }}:</strong><a href="/show_profile/{{ role.member_id }}"> {{ role.member_first_name }} {{ role.member_last_name }}</a></p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

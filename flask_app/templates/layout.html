@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">     
+    <title>Toast of the Town - Seattle</title>
+    <style>
+        h1 {
+            color: maroon
+        }
+
+        button {
+            margin-top: 15px;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #nav-bar-options {
+            display: flex;
+            list-style-type: none;
+        }
+
+        #nav-bar-options li {
+            margin-right: 15px;
+        }
+
+        .main-body {
+            display: flex;
+        }
+
+        #poast-block {
+            width: 600px;
+        }
+
+        #poast-block form {
+            border-left: 3px solid gray;
+            border-bottom: 3px solid gray;
+            border-right: 3px solid gray;
+            padding: 15px;
+        }
+
+        #poast-bar {
+            color: white;
+            background-color: royalblue;
+            padding: 15px;
+            margin-bottom: 0px;
+        }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        .new-form-box {
+            width: 500px;
+            margin: 20px 35px;
+        }
+
+        .new-form-bar {
+            color: white;
+            background-color: royalblue;
+            padding: 15px;
+            margin-bottom: 0px;
+        }
+
+        .new-form {
+            border-left: 3px solid gray;
+            border-bottom: 3px solid gray;
+            border-right: 3px solid gray;
+            padding: 15px;
+        }
+
+        .block {
+            display: block;
+        }
+
+        .new-poast-box {
+            width: 600px;
+            margin: 35px 0px;
+        }
+
+        .new-poast-bar {
+            color: white;
+            background-color: royalblue;
+            padding: 15px;
+            margin-bottom: 0px;
+        }
+
+        .new-poast {
+            border-left: 3px solid gray;
+            border-bottom: 3px solid gray;
+            border-right: 3px solid gray;
+            padding: 15px;
+        }
+
+        .user-card {
+        margin-top: 20px;
+        width: 600px;
+        border: 5px solid gray
+        }
+
+        .top-bar {
+            background-color: royalblue;
+            height: 100px;
+        }
+
+        .user-card-body {
+            padding: 25px;
+            position: relative;
+            bottom: 100px;
+        }
+
+        .locator {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-editor {
+            margin-top: 15px;
+        }
+
+        #profile-pic {
+            width: 150px;
+            height: 150px;
+            padding: 5px;
+            border: 3px solid gray;
+            border-radius: 50%;
+            background-color: white;
+        }
+
+        #locator-icon {
+            width: 10px;
+            height: 15px;
+            margin-right: 10px;
+        }
+
+        #gear-icon {
+            width: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <h1>TOAST OF THE TOWN</h1>
+            {% if user %}
+            <h2>Welcome {{ user.first_name }}!</h2>
+            {% endif %}
+            <ul id="nav-bar-options">
+                <li><a href="/dashboard">Home</a></li>
+                {% if user.officer_key %}
+                <li><a href="/officers_page">Officers Page</a></li>
+                {% endif %}
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+        <div class="main-body">
+    {% block content %}
+
+    {% endblock %}
+        </div>
+    </div> 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</body>
+</html>
