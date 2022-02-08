@@ -18,5 +18,5 @@ def home_page():
 @app.route("/create_meeting", methods=["POST"])
 def create_meeting():
     model_meetings.Meeting.save(request.form)
-    return redirect("/new_meeting")
+    return redirect("/officers_page")
 

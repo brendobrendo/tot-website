@@ -35,13 +35,22 @@
         </div>
         <div class="new-form">
             {% for role in upcoming_roles %}
-            <p><strong>{{ role.meeting_date }}:</strong> {{ role.role_name }} <br> 
-                <a href="#">Confirm</a> -
-                <a href="#">Need a Volunteer</a> 
-                {% if role.role_name in ['Speaker #1', 'Speaker #2', 'Speaker #3'] %}
-                - <a href="#">Provide Speech Details</a>
-                {% endif %}
-            </p>
+                <p><strong>{{ role.meeting_date }}:</strong> {{ role.role_name }} <br> 
+                    {% if not role.confirmed %}
+                    <div class="confirmation-responses">
+                        <form action="/create_role_confirmation" method="POST">
+                            <input type="hidden" name="role_assignment_id" value="{{ role.id }}">
+                            <button type="submit" class="btn btn-link">Confirm</button>
+                        </form>
+                        <form action="/create_volunteer_need" method="POST">
+                            <input type="hidden" name="role_assignment_id" value="{{ role.id }}">
+                            <button type="submit" class="btn btn-link">Need a Volunteer</button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <p>Confirmation response sent</p>
+                    {% endif %}
+                </p>
             {% endfor %}
         </div>
     </div>

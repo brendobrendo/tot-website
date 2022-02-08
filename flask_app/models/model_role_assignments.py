@@ -10,6 +10,7 @@ class RoleAssignment:
         self.meeting_date = data['meeting_date'].strftime("%B %d, %Y")
         self.role_name = data['name']
         self.member_id = data['members.id']
+        #self.confirmed = data['confirmed']
     
     # C - Create methods 
     @classmethod
@@ -21,7 +22,7 @@ class RoleAssignment:
     # R - Read methods / return data from table
     @classmethod
     def get_upcoming_user(cls, data):
-        query = "SELECT role_assignments.id, role_names.name, meetings.meeting_date, members.first_name, members.last_name, members.id FROM role_assignments JOIN role_names ON role_assignments.role_name_id = role_names.id JOIN meetings ON role_assignments.meeting_id = meetings.id JOIN members ON role_assignments.member_id = members.id WHERE role_assignments.member_id = %(member_id)s ;"
+        query = "SELECT role_assignments.id, role_names.name, meetings.meeting_date, members.first_name, members.last_name, members.id, role_confirmation_statuses.role_confirmation_response_id FROM role_assignments JOIN role_names ON role_assignments.role_name_id = role_names.id JOIN meetings ON role_assignments.meeting_id = meetings.id JOIN members ON role_assignments.member_id = members.id LEFT JOIN role_confirmation_statuses ON role_assignments.id = role_confirmation_statuses.role_assignment_id WHERE meetings.meeting_date >= CURRENT_DATE() AND role_assignments.member_id = %(member_id)s ;"
         results = connectToMySQL(DATABASE).query_db(query, data)
         role_assignments = [] 
         for role_assignment in results:
@@ -30,7 +31,7 @@ class RoleAssignment:
 
     @classmethod
     def get_upcoming_meeting(cls, data):
-        query = "SELECT role_assignments.id, role_names.name, meetings.meeting_date, members.first_name, members.last_name, members.id FROM role_assignments JOIN role_names ON role_assignments.role_name_id = role_names.id JOIN meetings ON role_assignments.meeting_id = meetings.id JOIN members ON role_assignments.member_id = members.id WHERE role_assignments.meeting_id = %(meeting_id)s; "
+        query = "SELECT role_assignments.id, role_names.name, meetings.meeting_date, members.first_name, members.last_name, members.id FROM role_assignments JOIN role_names ON role_assignments.role_name_id = role_names.id JOIN meetings ON role_assignments.meeting_id = meetings.id JOIN members ON role_assignments.member_id = members.id WHERE meetings.meeting_date >= CURRENT_DATE() AND role_assignments.meeting_id = %(meeting_id)s; "
         results = connectToMySQL(DATABASE).query_db(query, data)
         role_assignments = []
         for role_assignment in results:

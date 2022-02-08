@@ -22,4 +22,4 @@ def create_meeting_assignments():
     for entry in role_entries:
         model_role_assignments.RoleAssignment.save(entry)
 
-    return redirect("/new_meeting")
+    return redirect("/officers_page")
