@@ -1,5 +1,5 @@
 from flask_app import app
-from flask_app.models import model_meetings, model_members, model_role_names, model_role_assignments
+from flask_app.models import model_meetings, model_members, model_role_assignments
 from flask import redirect, render_template, request, session
 
 @app.route("/create_meeting_assignments", methods=["POST"])
@@ -30,10 +30,8 @@ def role_assignment_page():
     user = model_members.Member.get_one({'id': session['user_id']})
     return render_template("role_assignment_list.html", role_assignments=role_assignments, user=user)
 
-
 @app.route("/delete_assignment/<int:id>")
 def delete_assignment(id):
-    print(id)
     data = {'id': id}
     model_role_assignments.RoleAssignment.delete_one(data)
     return redirect("/role_assignment_page")
