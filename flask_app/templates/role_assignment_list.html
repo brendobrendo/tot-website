@@ -3,7 +3,7 @@
 {% block content %}
 <table class="table">
     <thead>
-        <th>Member Name</th>
+        <th>Role id #</th>
         <th>Member Role</th>
         <th>Action</th>
     </thead>
@@ -11,8 +11,8 @@
         {% for role in role_assignments %}
         <tr>
             <td>{{ role.id }}</td>
-            <td>{{ role.member_first_name }}</td>
-            <td><form action="/delete_assignment/{{ role.id }}"><button type="submit" class="btn btn-danger">Delete</button></td>
+            <td>{{ role.member_first_name }} {{ role.member_last_name }}</td>
+            <td><a href="/delete_assignment/{{ role.id }}">Delete<a href></td>
         </tr>
         {% endfor %}
     </tbody>

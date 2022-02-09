@@ -33,6 +33,7 @@ def role_assignment_page():
 
 @app.route("/delete_assignment/<int:id>")
 def delete_assignment(id):
+    print(id)
     data = {'id': id}
-    model_role_assignments.RoleAssignment.delete(data)
-    return redirect("/role_assignment_list")
+    model_role_assignments.RoleAssignment.delete_one(data)
+    return redirect("/role_assignment_page")
