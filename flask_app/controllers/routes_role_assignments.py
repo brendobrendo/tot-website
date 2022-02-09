@@ -23,3 +23,16 @@ def create_meeting_assignments():
         model_role_assignments.RoleAssignment.save(entry)
 
     return redirect("/officers_page")
+
+@app.route("/role_assignment_page")
+def role_assignment_page():
+    role_assignments = model_role_assignments.RoleAssignment.get_all()
+    user = model_members.Member.get_one({'id': session['user_id']})
+    return render_template("role_assignment_list.html", role_assignments=role_assignments, user=user)
+
+
+@app.route("/delete_assignment/<int:id>")
+def delete_assignment(id):
+    data = {'id': id}
+    model_role_assignments.RoleAssignment.delete(data)
+    return redirect("/role_assignment_list")

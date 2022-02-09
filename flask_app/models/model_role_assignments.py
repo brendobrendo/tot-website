@@ -38,6 +38,16 @@ class RoleAssignment:
             role_assignments.append( cls(role_assignment) )
         return role_assignments  # Returns role assignments for a specific meeting as a list of instances
 
+    @classmethod
+    def get_all(cls):
+        query = "SELECT role_assignments.id, role_names.name, meetings.meeting_date, members.first_name, members.last_name, members.id FROM role_assignments JOIN role_names ON role_assignments.role_name_id = role_names.id JOIN meetings ON role_assignments.meeting_id = meetings.id JOIN members ON role_assignments.member_id = members.id;"
+        results = connectToMySQL(DATABASE).query_db(query)
+        role_assignments = []
+        for role_assignment in results:
+            role_assignments.append( cls(role_assignment))
+        return role_assignments
+
+
 
     # U - Update methods / UPDATE existing entries with new values
     @classmethod
@@ -49,7 +59,7 @@ class RoleAssignment:
     # D - Delete methods / DELETE existing entries from table
     @classmethod
     def delete_one(cls, data):
-        query = "DELETE FROM members WHERE id= %(id)s;"
+        query = "DELETE FROM role_assignments WHERE id= %(id)s;"
         return connectToMySQL(DATABASE).query_db(query, data)
 
    
