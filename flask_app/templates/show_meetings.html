@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="block">
+{% for meeting in meetings %}
+    <div class="new-form-box">
+        <div class="new-form-bar">
+            <h2>Roles for {{ meeting.meeting_date }}</h2>
+        </div>
+        <div class="new-form">
+            {% for role in meeting.roles %}
+            <p><strong>{{ role.role_name }}:</strong><a href="/show_profile/{{ role.member_id }}"> {{ role.member_first_name}} {{ role.member_last_name}}</a></p>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}

@@ -20,3 +20,13 @@ def create_meeting():
     model_meetings.Meeting.save(request.form)
     return redirect("/officers_page")
 
+@app.route("/show_meetings")
+def show_meetings():
+    if 'user_id' not in session:
+        return redirect("/")
+    user = model_members.Member.get_one({'id': session['user_id']})
+    meetings = model_meetings.Meeting.get_all()  # list of Meeting class instances
+    for meeting in meetings:
+        meeting.roles = model_role_assignments.RoleAssignment.get_upcoming_meeting({"meeting_id": meeting.id})
+    return render_template("show_meetings.html", meetings=meetings, user=user)
+
