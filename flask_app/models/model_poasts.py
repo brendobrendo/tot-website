@@ -36,7 +36,6 @@ class Poast:
         return cls(result[0])  # Uses member id to return an instance of the class
 
     # U - Update methods / UPDATE existing entries with new values
-
     @classmethod
     def update_one(cls, data):
         query = 'UPDATE poasts SET title=%(title)s, content=%(content)s, member_id=%(member_id)s WHERE id=%(id)s;'
