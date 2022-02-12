@@ -27,5 +27,5 @@ def update_poast():
 
 @app.route("/delete_poast/<int:id>")
 def delete_poast(id):
-    model_poasts.Poast.delete_one(id)
+    model_poasts.Poast.delete_one({'id': id})
     return redirect("/dashboard")
