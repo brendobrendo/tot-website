@@ -30,12 +30,6 @@ class Poast:
         return members  # Returns a list of class instances
 
     @classmethod
-    def get_last_one(cls):
-        query = "SELECT * FROM member ORDER BY id DESC LIMIT 1;"
-        result = connectToMySQL(DATABASE).query_db(query)
-        return cls(result)  # Returns an instance of a Member class based on last member entered into the db
-
-    @classmethod
     def get_one(cls, data):
         query = "SELECT * FROM members WHERE id = %(id)s;"
         result = connectToMySQL(DATABASE).query_db(query, data)
@@ -45,13 +39,13 @@ class Poast:
 
     @classmethod
     def update_one(cls, data):
-        query = 'UPDATE members SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s WHERE id=%(id)s;'
+        query = 'UPDATE poasts SET title=%(title)s, content=%(content)s, member_id=%(member_id)s WHERE id=%(id)s;'
         return connectToMySQL(DATABASE).query_db(query, data)
 
     # D - Delete methods / DELETE existing entries from table
     @classmethod
     def delete_one(cls, data):
-        query = "DELETE FROM members WHERE id= %(id)s;"
+        query = "DELETE FROM poasts WHERE id= %(id)s;"
         return connectTomMySQL(DATABASE).query_db(query, data)
 
     
