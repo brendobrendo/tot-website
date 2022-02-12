@@ -1,0 +1,17 @@
+{% extends "layout.html" %} 
+
+{% block content %}
+<form action="/update_poast" method="POST" class="form border bg-light">
+    <input type="hidden" name="id" value="{{ poast.id }}">
+    <input type="hidden" name="member_id" value="{{ user.id }}">
+    <div class="mb-3 fields">
+        <label class="form-label">Poast Title:</label>
+        <input type="text" class="form-control input-field" name="title" value="{{ poast.title }}">
+      </div>
+    <div class="mb-3 block">
+        <label class="form-label">Content:</label>
+        <textarea name="content" value="{{ poast.content }}">{{ poast.content }}</textarea>
+      </div>
+      <button type="button submit" class="btn btn-success">Update</button>
+</form>
+{% endblock %}

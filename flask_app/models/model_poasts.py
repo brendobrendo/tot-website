@@ -31,9 +31,9 @@ class Poast:
 
     @classmethod
     def get_one(cls, data):
-        query = "SELECT * FROM members WHERE id = %(id)s;"
+        query = "SELECT poasts.id, members.first_name, members.last_name, members.id, poasts.title, poasts.content, poasts.updated_at FROM poasts JOIN members ON poasts.member_id = members.id WHERE poasts.id = %(id)s;"
         result = connectToMySQL(DATABASE).query_db(query, data)
-        return cls(result[0])  # Uses member id to return an instance of the class
+        return cls(result[0])  
 
     # U - Update methods / UPDATE existing entries with new values
     @classmethod
