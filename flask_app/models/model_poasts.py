@@ -45,6 +45,6 @@ class Poast:
     @classmethod
     def delete_one(cls, data):
         query = "DELETE FROM poasts WHERE id= %(id)s;"
-        return connectTomMySQL(DATABASE).query_db(query, data)
+        return connectToMySQL(DATABASE).query_db(query, data)
 
     
