@@ -25,7 +25,10 @@
             <p><em>{{ poast.poast_date }} - <a href="/show_profile/{{ poast.member_id }}">{{ poast.member_first_name }} {{ poast.member_last_name }}</em></a></p>
             <p>{{ poast.content }}</p>  
             {% if user.id == poast.member_id %}
-            <a href="/show_poast/{{ poast.id }}">Update Poast</a>
+            <a class="update-poast" href="/show_poast/{{ poast.id }}">Update Poast</a>
+            {% endif %}
+            {% if user.id ==poast.member_id or user.officer_key %}
+            <a href="/delete_poast/{{ poast.id }}">Delete Poast</a>
             {% endif %}
         </div>
     </div>
