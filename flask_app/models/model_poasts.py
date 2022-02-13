@@ -10,7 +10,7 @@ class Poast:
         self.content = data['content']
         self.member_first_name = data['first_name']
         self.member_last_name = data['last_name']
-        self.poast_date = data['updated_at'].strftime("%B %d, %Y")
+        self.poast_date = data['created_at'].strftime("%B %d, %Y")
         self.member_id = data['members.id']
     
     # C - Create methods / INSERT a new entry into a table
@@ -22,7 +22,7 @@ class Poast:
     # R - Read methods / return data from table
     @classmethod
     def get_all(cls):
-        query = "SELECT poasts.id, members.first_name, members.last_name, members.id, poasts.title, poasts.content, poasts.updated_at FROM poasts JOIN members ON poasts.member_id = members.id ORDER BY poasts.id DESC LIMIT 20;"
+        query = "SELECT poasts.id, members.first_name, members.last_name, members.id, poasts.title, poasts.content, poasts.created_at FROM poasts JOIN members ON poasts.member_id = members.id ORDER BY poasts.id DESC LIMIT 20;"
         results = connectToMySQL(DATABASE).query_db(query)
         members = [] 
         for member in results:
@@ -31,7 +31,7 @@ class Poast:
 
     @classmethod
     def get_one(cls, data):
-        query = "SELECT poasts.id, members.first_name, members.last_name, members.id, poasts.title, poasts.content, poasts.updated_at FROM poasts JOIN members ON poasts.member_id = members.id WHERE poasts.id = %(id)s;"
+        query = "SELECT poasts.id, members.first_name, members.last_name, members.id, poasts.title, poasts.content, poasts.created_at FROM poasts JOIN members ON poasts.member_id = members.id WHERE poasts.id = %(id)s;"
         result = connectToMySQL(DATABASE).query_db(query, data)
         return cls(result[0])  
 
