@@ -42,7 +42,11 @@
         <div class="new-form">
             {% for role in upcoming_roles %}
                 <p><strong>{{ role.meeting_date }}:</strong> {{ role.role_name }} <br> 
-                    {% if not role.confirmed %}
+                    {% if role.response_id==1 %}
+                    <p class="confirmed">Confirmed</p>
+                    {% elif role.response_id==2 %}
+                    <p>Requested Volunteer</p>
+                    {% else %}
                     <div class="confirmation-responses">
                         <form action="/create_role_confirmation" method="POST">
                             <input type="hidden" name="role_assignment_id" value="{{ role.id }}">
@@ -53,8 +57,6 @@
                             <button type="submit" class="btn btn-link">Need a Volunteer</button>
                         </form>
                     </div>
-                    {% else %}
-                    <p>Confirmation response sent</p>
                     {% endif %}
                 </p>
             {% endfor %}
@@ -66,7 +68,16 @@
         </div>
         <div class="new-form">
             {% for role in next_meeting_roles %}
-            <p><strong>{{ role.role_name }}:</strong><a href="/show_profile/{{ role.member_id }}"> {{ role.member_first_name }} {{ role.member_last_name }}</a></p>
+            <div class="next-meeting-roles">
+                <p><strong>{{ role.role_name }}:</strong><a href="/show_profile/{{ role.member_id }}"> {{ role.member_first_name }} {{ role.member_last_name }}</a></p>
+                {% if role.response_id==1 %}
+                <p class="confirmed"> - Confirmed</p>
+                {% elif role.response_id==2 %}
+                <p> - Needs Volunteer</p>
+                {% else %}
+                <p> - Not confirmed</p>
+                {% endif %}
+            </div>
             {% endfor %}
             <a href="https://sites.google.com/site/toastmasters4741/home/meeting-roles">Get more info on your role</a>
             <a href="/show_meetings">See Full Meeting Schedules</a>
