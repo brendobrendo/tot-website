@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="new-form-box">
+    <h2 class="new-form-bar">Send Email</h2>
+    <form class="form" action="/send_email" method="POST">
+        <div>
+            <label class="form-label">Email Title:</label>
+            <input type="text" class="form-control input-field" name="title">   
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Content:</label>
+            <textarea class="form-control" name="content"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+</div>
+{% endblock %}
