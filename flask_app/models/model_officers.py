@@ -7,8 +7,9 @@ class Officer:
         self.officer_first_name = data['first_name']
         self.officer_last_name = data['last_name']
         self.officer_member_id = data['members.id']
-        self.title_name = data['title_name']
-        self.title_id = data['title_id']
+        self.title_name = data['officer_title']
+        self.title_id = data['officer_role_names.id']
+        self.email = data['email']
     
     # C - Create methods / INSERT a new entry into a table
     @classmethod
@@ -19,7 +20,7 @@ class Officer:
     # R - Read methods / return data from table
     @classmethod
     def get_all(cls):
-        query = "SELECT officer_assignments.id, members.first_name, members.last_name, members.id, members.email, officer_role_names.officer_title FROM officer_assignments JOIN officer_role_names ON officer_assignments.officer_role_name_id = officer_role_names.id JOIN members ON officer_assignments.member_id = members.id;"
+        query = "SELECT officer_assignments.id, members.first_name, members.last_name, members.id, members.email, officer_role_names.officer_title, officer_role_names.id FROM officer_assignments JOIN officer_role_names ON officer_assignments.officer_role_name_id = officer_role_names.id JOIN members ON officer_assignments.member_id = members.id;"
         results = connectToMySQL(DATABASE).query_db(query)
         officers = [] 
         for officer in results:
