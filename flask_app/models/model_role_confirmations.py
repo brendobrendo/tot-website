@@ -1,21 +1,20 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app import DATABASE
 
-class RoleConfirmationStatus:
+class RoleConfirmation:
     def __init__( self , data ):
         self.id = data['id']
-        self.role_assignment_id = data['role_assignment_id']
-        self.role_confirmation_response_id = data['role_confirmation_response_id']
+        self.response_id = data['response_id']  # 1='confirmed' 2='need a volunteer'
     
     # C - Create methods / INSERT a new entry into a table
     @classmethod
     def confirm_role(cls, data):
-        query = "INSERT INTO role_confirmation_statuses (role_assignment_id, role_confirmation_response_id) VALUES ( %(role_assignment_id)s, 1);"
+        query = "INSERT INTO role_confirmation_responses (response_id, role_assignment_id) VALUES (1, %(role_assignment_id)s);"
         return connectToMySQL(DATABASE).query_db(query, data)
     
     @classmethod
     def need_volunteer(cls, data):
-        query = "INSERT INTO role_confirmation_statuses (role_assignment_id, role_confirmation_response_id) VALUES ( %(role_assignment_id)s, 2);"
+        query = "INSERT INTO role_confirmation_responses (response_id) VALUES (2, %(role_assignment_id)s);"
         return connectToMySQL(DATABASE).query_db(query, data)
 
 
@@ -38,4 +37,3 @@ class RoleConfirmationStatus:
     @classmethod
     def delete_confirmation(cls, data):
         pass
- 
