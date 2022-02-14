@@ -1,5 +1,5 @@
 from flask_app import app
-from flask_app.models import model_members
+from flask_app.models import model_members, model_officers
 from flask import redirect, render_template, request, session
 import smtplib
 
@@ -20,5 +20,8 @@ def send_email():
     server.starttls()
     server.login("tot4741.toastmaster@gmail.com", "toastmaster4741")
 
-    server.sendmail("tot4741.toastmaster@gmail.com", "brendan.smith903@gmail.com", content)
+    officers = model_officers.Officer.get_all()
+    for officer in officers:
+        server.sendmail("tot4741.toastmaster@gmail.com", officer.email, content)
+    server.quit()
     return redirect("/officers_page")

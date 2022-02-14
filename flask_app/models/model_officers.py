@@ -19,7 +19,7 @@ class Officer:
     # R - Read methods / return data from table
     @classmethod
     def get_all(cls):
-        query = "SELECT officer_assignments.id, members.first_name, members.last_name, members.id, officer_role_names.officer_title FROM officer_assignments JOIN officer_role_names ON officer_assignments.officer_role_name_id = officer_role_names.id JOIN members ON officer_assignments.member_id = members.id;"
+        query = "SELECT officer_assignments.id, members.first_name, members.last_name, members.id, members.email, officer_role_names.officer_title FROM officer_assignments JOIN officer_role_names ON officer_assignments.officer_role_name_id = officer_role_names.id JOIN members ON officer_assignments.member_id = members.id;"
         results = connectToMySQL(DATABASE).query_db(query)
         officers = [] 
         for officer in results:
