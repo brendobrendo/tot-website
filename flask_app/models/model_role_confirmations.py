@@ -14,7 +14,7 @@ class RoleConfirmation:
     
     @classmethod
     def need_volunteer(cls, data):
-        query = "INSERT INTO role_confirmation_responses (response_id) VALUES (2, %(role_assignment_id)s);"
+        query = "INSERT INTO role_confirmation_responses (response_id, role_assignment_id) VALUES (2, %(role_assignment_id)s);"
         return connectToMySQL(DATABASE).query_db(query, data)
 
 

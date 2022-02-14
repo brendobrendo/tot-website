@@ -45,7 +45,7 @@
                     {% if role.response_id==1 %}
                     <p class="confirmed">Confirmed</p>
                     {% elif role.response_id==2 %}
-                    <p>Requested Volunteer</p>
+                    <p class="need-volunteer"><i>Waiting for volunteer</i></p>
                     {% else %}
                     <div class="confirmation-responses">
                         <form action="/create_role_confirmation" method="POST">
@@ -71,9 +71,9 @@
             <div class="next-meeting-roles">
                 <p><strong>{{ role.role_name }}:</strong><a href="/show_profile/{{ role.member_id }}"> {{ role.member_first_name }} {{ role.member_last_name }}</a></p>
                 {% if role.response_id==1 %}
-                <p class="confirmed"> - Confirmed</p>
+                <p class="confirmed"> - CONFIRMED</p>
                 {% elif role.response_id==2 %}
-                <p> - Needs Volunteer</p>
+                <p class="need-volunteer"> - VOLUNTEER NEEDED</p>
                 {% else %}
                 <p> - Not confirmed</p>
                 {% endif %}
