@@ -22,7 +22,6 @@ def send_email():
 
     officers = model_officers.Officer.get_all()
     for officer in officers:
-        #server.sendmail("tot4741.toastmaster@gmail.com", officer.email, content)
-        print(officer.email)
+        server.sendmail("tot4741.toastmaster@gmail.com", officer.email, content)
     server.quit()
     return redirect("/officers_page")
