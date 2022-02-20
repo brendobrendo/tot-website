@@ -13,15 +13,23 @@ def new_email():
 @app.route("/send_email", methods=['POST'])
 def send_email():
     data = request.form
-    title = data.get("title")
-    content = data.get("content")
+    subject = data.get("subject")
+    body = data.get("body")
+
+    msg = f'Subject: {subject}\n\n{body}'
 
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
     server.login("tot4741.toastmaster@gmail.com", "toastmaster4741")
 
+    """
     officers = model_officers.Officer.get_all()
     for officer in officers:
         server.sendmail("tot4741.toastmaster@gmail.com", officer.email, content)
+    """
+
+    server.sendmail("tot4741.toastmaster@gmail.com", "brendan.smith903@gmail.com", msg)
+
+
     server.quit()
     return redirect("/officers_page")
